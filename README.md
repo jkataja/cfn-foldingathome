@@ -6,20 +6,7 @@ Folding@home is a computing platform to assist disease research, for instance to
 The template uses G4 instance type instances with NVIDIA TESLA GPUs.
 Please only deploy it on accounts where you have the permissions to do so.
 
-WIP Please monitor that the solution works for you. Currently progress stalls with:
-
-```
-17:20:30:WU01:FS01:Assigned to work server 140.163.4.241
-17:20:30:WU01:FS01:Requesting new work unit for slot 01: READY gpu:0:TU104GL [Tesla T4] from 140.163.4.241
-17:20:30:WU01:FS01:Connecting to 140.163.4.241:8080
-17:22:39:WARNING:WU01:FS01:WorkServer connection failed on port 8080 trying 80
-17:22:39:WU01:FS01:Connecting to 140.163.4.241:80
-17:23:07:WU00:FS00:Connecting to 65.254.110.245:8080
-17:23:07:WU00:FS00:Assigned to work server 128.252.203.9
-17:23:07:WU00:FS00:Requesting new work unit for slot 00: READY cpu:3 from 128.252.203.9
-17:23:07:WU00:FS00:Connecting to 128.252.203.9:8080
-17:23:20:ERROR:WU00:FS00:Exception: 10002: Received short response, expected 512 bytes, got 0
-```
+WIP Please monitor that the solution works for you.
 
 ## Usage
 
