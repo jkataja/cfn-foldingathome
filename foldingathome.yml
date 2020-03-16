@@ -1,7 +1,7 @@
 # https://github.com/jkataja/cfn-foldingathome
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-  Run Folding@home on spot instances to help find cure against COVID-19.
+  Run Folding@home on spot instances to help find cure for COVID-19.
 
 Mappings:
   # Ubuntu 18.04 LTS AMI IDs as of 2020-03-16 from https://cloud-images.ubuntu.com/locator/ec2/
@@ -55,7 +55,7 @@ Parameters:
     Type: Number
     Default: 0
   InstanceCount:
-    Description: Count of g4dn.xlarge instances to run Folding@home client
+    Description: Count of g4dn.xlarge instances to run the Folding@home client
     Type: Number
     Default: 1
   KeyName:
@@ -140,7 +140,7 @@ Resources:
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Folding@home spot instances security group
+      GroupDescription: Folding@home spot instance security group
       VpcId: !Ref VpcId
       SecurityGroupIngress:
         - IpProtocol: tcp

@@ -1,12 +1,12 @@
 # cfn-foldingathome
 > CloudFormation template for Folding@home on AWS spot instances.
 
-This template creates a AWS spot instance fleet for running the [Folding@Home](https://foldingathome.org/) client.
-Folding@home is a computing platform to assist disease research, for instance to find cure against the COVID-19 virus.
-The template uses G4 instance type instances with NVIDIA TESLA GPUs.
+This template creates an AWS spot instance fleet for running the [Folding@Home](https://foldingathome.org/) client.
+Folding@home is a computing platform to assist disease research, for instance to find a cure for the COVID-19 virus.
+The template uses G4-type instances with NVIDIA TESLA GPUs.
 Please only deploy it on accounts where you have the permissions to do so.
 
-WIP Please monitor that the solution works for you.
+WIP Please check whether the solution works for you.
 
 ## Usage
 
@@ -53,13 +53,13 @@ aws cloudformation create-stack \
 
 ### Access Web UI
 
-Forward port 7396 from instance to localhost (replace `public-ip` with public IP address of the instance):
+Forward port 7396 from the instance to localhost (replace `public-ip` with public IP address of the instance):
 
 ```sh
 ssh ubuntu@public-ip -L 7396:localhost:7396
 ```
 
-Now access Web UI from: http://localhost:7396/
+Now access the sWeb UI from: http://localhost:7396/
 
 ### Installation paths
 
