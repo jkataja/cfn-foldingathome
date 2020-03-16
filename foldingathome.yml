@@ -1,0 +1,174 @@
+# https://github.com/jkataja/cfn-foldingathome
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  Run Folding@home on spot instances to help find cure against COVID-19.
+
+Mappings:
+  # Ubuntu 18.04 LTS AMI IDs as of 2020-03-16 from https://cloud-images.ubuntu.com/locator/ec2/
+  Ubuntu1804:
+    ap-east-1:
+      ImageId: 'ami-868bcff7'
+    ap-northeast-1:
+      ImageId: 'ami-01f90b0460589991e'
+    ap-northeast-2:
+      ImageId: 'ami-096e3ded41e3bda6a'
+    ap-northeast-3:
+      ImageId: 'ami-0942fd36e1571cbdf'
+    ap-south-1:
+      ImageId: 'ami-0d11056c10bfdde69'
+    ap-southeast-1:
+      ImageId: 'ami-07ce5f60a39f1790e'
+    ap-southeast-2:
+      ImageId: 'ami-04c7af7de7ad468f0'
+    ca-central-1:
+      ImageId: 'ami-064efdb82ae15e93f'
+    cn-north-1:
+      ImageId: 'ami-01993b4213b4bffb5'
+    cn-northwest-1:
+      ImageId: 'ami-01d4e30d4d4952d0f'
+    eu-central-1:
+      ImageId: 'ami-0718a1ae90971ce4d'
+    eu-north-1:
+      ImageId: 'ami-0e850e0e9c20d9deb'
+    eu-west-1:
+      ImageId: 'ami-07042e91d04b1c30d'
+    eu-west-2:
+      ImageId: 'ami-04cc79dd5df3bffca'
+    eu-west-3:
+      ImageId: 'ami-0c367ebddcf279dc6'
+    me-south-1:
+      ImageId: 'ami-0e40363f9ed76073b'
+    sa-east-1:
+      ImageId: 'ami-0cb1ddea3786f6c0d'
+    us-east-1:
+      ImageId: 'ami-046842448f9e74e7d'
+    us-east-2:
+      ImageId: 'ami-0367b500fdcac0edc'
+    us-west-1:
+      ImageId: 'ami-0d58800f291760030'
+    us-west-2:
+      ImageId: 'ami-0edf3b95e26a682df'
+
+Parameters: 
+  FoldingAtHomeTeam:
+    Description: Folding@home team number (or 0 for no team)
+    Type: Number
+    Default: 0
+  InstanceCount:
+    Description: Count of g4dn.xlarge instances to run Folding@home client
+    Type: Number
+    Default: 1
+  KeyName:
+    Description: SSH key name for ubuntu user
+    Type: AWS::EC2::KeyPair::KeyName
+  Subnets:
+    Description: Subnets for auto-scaling group instances
+    Type: List<AWS::EC2::Subnet::Id>
+  VpcId:
+    Description: VPC of the subnets for auto-scalign group instances
+    Type: AWS::EC2::VPC::Id
+
+Resources: 
+  AutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      LaunchTemplate:
+        LaunchTemplateId: !Ref LaunchTemplate
+        Version: !GetAtt LaunchTemplate.LatestVersionNumber
+      MaxSize: !Ref InstanceCount
+      DesiredCapacity: !Ref InstanceCount
+      MinSize: 0
+      VPCZoneIdentifier: !Ref Subnets
+      Tags:
+        - Key: Name
+          Value: Folding@home
+          PropagateAtLaunch: True
+
+  LaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData: 
+        BlockDeviceMappings:
+          - DeviceName: '/dev/sda1'
+            Ebs:
+              DeleteOnTermination: 'true'
+              VolumeSize: '40'
+              VolumeType: 'gp2'
+        ImageId: !FindInMap [ Ubuntu1804, !Ref 'AWS::Region', ImageId ]
+        InstanceType: 'g4dn.xlarge'
+        InstanceMarketOptions:
+          MarketType: 'spot'
+          SpotOptions:
+            SpotInstanceType: 'one-time'
+        EbsOptimized: 'true'
+        KeyName: !Ref KeyName
+        Monitoring:
+          Enabled: 'true'
+        SecurityGroupIds:
+          - !Ref SecurityGroup
+        UserData:
+          Fn::Base64: !Sub |
+            #!/bin/bash -ex
+            # Install NVIDIA CUDA drivers
+            wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
+            mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
+            apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+            add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
+            apt-get update
+            apt-get -y install cuda
+            # Install Folding@home
+            wget https://download.foldingathome.org/releases/public/release/fahclient/debian-testing-64bit/v7.4/fahclient_7.4.4_amd64.deb
+            DEBIAN_FRONTEND=noninteractive dpkg -i --force-depends fahclient_7.4.4_amd64.deb
+            cp /etc/fahclient/config.xml /etc/fahclient/config.xml.orig
+            cat<<END >/etc/fahclient/config.xml
+            <config>
+              <fold-anon v="true"/>
+              <user v="Anonymous"/>
+              <team v="${FoldingAtHomeTeam}"/>
+              <passkey v=""/>
+              <power v="full"/>
+              <gpu v="true"/>
+              <slot id="0" type="CPU"/>
+              <slot id="1" type="GPU"/>
+              <allow>127.0.0.1</allow>
+              <web-allow>127.0.0.1</web-allow>
+            </config>
+            END
+            systemctl enable FAHClient
+            systemctl restart FAHClient
+
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Folding@home spot instances security group
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 1024
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: udp
+          FromPort: 53
+          ToPort: 53
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: udp
+          FromPort: 123
+          ToPort: 123
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 8080
+          ToPort: 8080
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
