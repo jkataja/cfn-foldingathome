@@ -117,8 +117,8 @@ Resources:
             apt-get update
             apt-get -y install cuda
             # Install Folding@home
-            wget https://download.foldingathome.org/releases/public/release/fahclient/debian-testing-64bit/v7.4/fahclient_7.4.4_amd64.deb
-            DEBIAN_FRONTEND=noninteractive dpkg -i --force-depends fahclient_7.4.4_amd64.deb
+            wget https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.5/fahclient_7.5.1_amd64.deb
+            DEBIAN_FRONTEND=noninteractive dpkg -i --force-depends fahclient_7.5.1_amd64.deb
             cp /etc/fahclient/config.xml /etc/fahclient/config.xml.orig
             cat<<END >/etc/fahclient/config.xml
             <config>
