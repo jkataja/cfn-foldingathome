@@ -69,6 +69,10 @@ Show status of the service with `systemctl status FAHClient` .
 
 ## Release History
 
+* 20.3.17
+    * Updated client to 7.5.1
+    * Optimized GPU settings
+    * Reviewed security group ingress
 * 20.3.16
     * Initial version
 
