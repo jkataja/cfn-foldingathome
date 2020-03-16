@@ -78,6 +78,7 @@ Show status of the service with `systemctl status FAHClient` .
  - [Manual installation for Folding@home](https://foldingathome.org/support/faq/installation-guides/linux/manual-installation-advanced/)
  - [Ubuntu cloud images locator](https://cloud-images.ubuntu.com/locator/ec2/)
  - [Installation Instructions for CUDA Toolkit 10.2](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=debnetwork)
+ - [Optimize GPU Settings](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/optimize_gpu.html)
 
 ## Meta
 
