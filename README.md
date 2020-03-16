@@ -59,7 +59,7 @@ Forward port 7396 from the instance to localhost (replace `public-ip` with publi
 ssh ubuntu@public-ip -L 7396:localhost:7396
 ```
 
-Now access the sWeb UI from: http://localhost:7396/
+Now access the Web UI from: http://localhost:7396/
 
 ### Installation paths
 
