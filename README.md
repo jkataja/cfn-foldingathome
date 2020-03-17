@@ -6,6 +6,17 @@ Folding@home is a computing platform to assist disease research, for instance to
 The template uses G4-type instances with NVIDIA TESLA GPUs.
 Please only deploy it on accounts where you have the permissions to do so.
 
+The template installs the following software:
+
+ - Ubuntu 18.04 LTS
+ - NVidia CUDA 10.02
+ - Folding@home client 7.5.1
+
+Folding@home client is started automatically after instance initialization is complete.
+Client runs until the template is removed, auto scaling group is scaled in or spot instance is reclaimed.
+The template bids 100% of on-demand price and instances are unlikely to be reclaimed.
+Spot instance pricing varies: expect approximately 60-70% discount for G4 instance type.
+
 WIP Please check whether the solution works for you.
 
 ## Usage
@@ -97,6 +108,8 @@ Show status of the service with `systemctl status FAHClient` .
 ## Meta
 
 Janne Kataja – [@jkataja](https://twitter.com/jkataja) – fistname.lastname at gmail
+
+This software is provided "as is", without warranty of any kind.
 
 Distributed under the Apache License v2 license. See ``LICENSE`` for more information.
 
