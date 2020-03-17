@@ -51,21 +51,21 @@ Mappings:
 
 Parameters: 
   FoldingAtHomeTeam:
-    Description: Folding@home team number (or 0 for no team)
+    Description: Folding@home team number (default 0 for no team)
     Type: Number
     Default: 0
   InstanceCount:
-    Description: Count of g4dn.xlarge instances to run the Folding@home client
+    Description: Scale-out count of g4dn.xlarge instances to run the Folding@home client
     Type: Number
     Default: 1
   KeyName:
     Description: SSH key name for ubuntu user
     Type: AWS::EC2::KeyPair::KeyName
   Subnets:
-    Description: Subnets for auto-scaling group instances
+    Description: Subnets in VPC (for example the default VPC subnets 172.31.0.0/20, 172.31.16.0/20 and 172.31.32.0/20)
     Type: List<AWS::EC2::Subnet::Id>
   VpcId:
-    Description: VPC of the subnets for auto-scalign group instances
+    Description: VPC for the stack (for example the default VPC 172.31.0.0/16)
     Type: AWS::EC2::VPC::Id
 
 Resources: 
