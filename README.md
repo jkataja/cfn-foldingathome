@@ -58,7 +58,7 @@ Cost of spot instances may vary by availability zone. Use subnets across differe
 
 ### Launch from CLI
 
-Replace `KeyName`, `Subnets` and `Vpcid` values:
+Replace `KeyName`, `Subnets` and `VpcId` values:
 
 ```sh
 aws cloudformation create-stack \
