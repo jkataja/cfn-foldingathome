@@ -92,7 +92,7 @@ Resources:
           - DeviceName: '/dev/sda1'
             Ebs:
               DeleteOnTermination: 'true'
-              VolumeSize: '40'
+              VolumeSize: '20'
               VolumeType: 'gp2'
         ImageId: !FindInMap [ Ubuntu1804, !Ref 'AWS::Region', ImageId ]
         InstanceType: 'g4dn.xlarge'
@@ -109,6 +109,11 @@ Resources:
         UserData:
           Fn::Base64: !Sub |
             #!/bin/bash -ex
+            # Use instance store for Folding@home
+            mkfs -t ext4 /dev/nvme0n1
+            mkdir /var/lib/fahclient
+            echo "/dev/nvme0n1 /var/lib/fahclient ext4 defaults,discard 0 0" >>/etc/fstab
+            mount -a
             # Install NVIDIA CUDA drivers
             wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
             mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
