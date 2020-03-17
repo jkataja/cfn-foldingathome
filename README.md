@@ -9,7 +9,7 @@ Please only deploy it on accounts where you have the permissions to do so.
 The template installs the following software:
 
  - Ubuntu 18.04 LTS
- - NVidia CUDA 10.02
+ - NVidia CUDA 10.2
  - Folding@home client 7.5.1
 
 Folding@home client is started automatically after instance initialization is complete.
