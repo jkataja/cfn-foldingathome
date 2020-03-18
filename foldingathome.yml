@@ -77,7 +77,7 @@ Resources:
         Version: !GetAtt LaunchTemplate.LatestVersionNumber
       MaxSize: !Ref InstanceCount
       DesiredCapacity: !Ref InstanceCount
-      MinSize: 0
+      MinSize: '0'
       VPCZoneIdentifier: !Ref Subnets
       Tags:
         - Key: Name
@@ -91,8 +91,8 @@ Resources:
         BlockDeviceMappings:
           - DeviceName: '/dev/sda1'
             Ebs:
-              DeleteOnTermination: 'true'
-              VolumeSize: '20'
+              DeleteOnTermination: true
+              VolumeSize: 20
               VolumeType: 'gp2'
         ImageId: !FindInMap [ Ubuntu1804, !Ref 'AWS::Region', ImageId ]
         InstanceType: 'g4dn.xlarge'
@@ -100,10 +100,10 @@ Resources:
           MarketType: 'spot'
           SpotOptions:
             SpotInstanceType: 'one-time'
-        EbsOptimized: 'true'
+        EbsOptimized: true
         KeyName: !Ref KeyName
         Monitoring:
-          Enabled: 'true'
+          Enabled: true
         SecurityGroupIds:
           - !Ref SecurityGroup
         UserData:
