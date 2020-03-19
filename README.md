@@ -90,6 +90,9 @@ Show status of the service with `systemctl status FAHClient` .
 
 ## Release History
 
+* 20.3.19
+    * Use instance store for `/var/lib/fahclient`
+    * Improved parameter descriptions
 * 20.3.17
     * Updated client to 7.5.1
     * Optimized GPU settings
