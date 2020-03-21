@@ -69,7 +69,8 @@ aws cloudformation create-stack \
     ParameterKey="InstanceCount",ParameterValue="1" \
     ParameterKey="KeyName",ParameterValue="mykeyname" \
     ParameterKey="Subnets",ParameterValue="subnet-12345678\,subnet-56781234" \
-    ParameterKey="VpcId",ParameterValue="vpc-abcdefgh"
+    ParameterKey="VpcId",ParameterValue="vpc-abcdefgh" \
+--capabilities CAPABILITY_IAM
 ```
 
 ### Access Web UI
