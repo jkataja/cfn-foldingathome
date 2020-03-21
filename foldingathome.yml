@@ -83,6 +83,10 @@ Resources:
         - Key: Name
           Value: Folding@home
           PropagateAtLaunch: True
+    CreationPolicy:
+      ResourceSignal:
+        Count: !Ref InstanceCount
+        Timeout: 'PT10M' # 10 minutes
 
   LaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
@@ -115,13 +119,13 @@ Resources:
             mkdir /var/lib/fahclient
             echo "/dev/nvme0n1 /var/lib/fahclient ext4 defaults,discard 0 0" >>/etc/fstab
             mount -a
-            # Install NVIDIA CUDA drivers
+            # Install NVIDIA CUDA drivers and CloudFormation signal
             wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
             mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
             apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
             add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
             apt-get update
-            apt-get -y install cuda
+            apt-get -y install cuda heat-cfntools
             # Optimize GPU settings
             nvidia-smi -ac 5001,1590
             # Install Folding@home
@@ -144,6 +148,7 @@ Resources:
             END
             systemctl enable FAHClient
             systemctl restart FAHClient
+            /usr/bin/cfn-signal --success --stack ${AWS::StackName} --resource AutoScalingGroup --region ${AWS::Region}
 
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
