@@ -91,6 +91,11 @@ Show status of the service with `systemctl status FAHClient` .
 
 ## Release History
 
+* 20.3.21
+    * Add custom health check to auto-scaling group, marking instance unhealthy on Folding@home client failure
+    * Changed from init script included with the package to systemd service
+    * Signal failure of instance initialization script using `cfn-signal`
+    * Log user instance initialization script output
 * 20.3.19
     * Use instance store for `/var/lib/fahclient`
     * Improved parameter descriptions
