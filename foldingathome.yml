@@ -54,6 +54,14 @@ Parameters:
     Description: Folding@home team number (default 0 for no team)
     Type: Number
     Default: 0
+  FoldingAtHomeUser:
+    Description: Folding@home user name (default Anonymous for anonymous)
+    Type: String
+    Default: 'Anonymous'
+  FoldingAtHomePasskey:
+    Description: Folding@home pass key (leave empty for anonymous user)
+    Type: String
+    Default: ''
   InstanceCount:
     Description: Scale-out count of g4dn.xlarge instances to run the Folding@home client
     Type: Number
@@ -140,9 +148,9 @@ Resources:
             cat<<END >/etc/fahclient/config.xml
             <config>
               <fold-anon v="true"/>
-              <user v="Anonymous"/>
+              <user v="${FoldingAtHomeUser}"/>
               <team v="${FoldingAtHomeTeam}"/>
-              <passkey v=""/>
+              <passkey v="${FoldingAtHomePasskey}"/>
               <power v="full"/>
               <gpu v="true"/>
               <slot id="0" type="CPU"/>
