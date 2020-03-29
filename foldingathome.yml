@@ -50,16 +50,23 @@ Mappings:
       ImageId: 'ami-0edf3b95e26a682df'
 
 Parameters: 
+  Anonymous:
+    Description: Folding@home fold anonymously (default true for anonymous)
+    Type: String
+    Default: 'true'
+    AllowedValues:
+      - 'true'
+      - 'false'
   FoldingAtHomeTeam:
     Description: Folding@home team number (default 0 for no team)
     Type: Number
     Default: 0
   FoldingAtHomeUser:
-    Description: Folding@home user name (default Anonymous for anonymous)
+    Description: Folding@home user name (default Anonymous for anonymous user)
     Type: String
     Default: 'Anonymous'
   FoldingAtHomePasskey:
-    Description: Folding@home pass key (leave empty for anonymous user)
+    Description: Folding@home pass key (default empty for anonymous user)
     Type: String
     Default: ''
   InstanceCount:
@@ -147,7 +154,7 @@ Resources:
             mkdir /etc/fahclient
             cat<<END >/etc/fahclient/config.xml
             <config>
-              <fold-anon v="true"/>
+              <fold-anon v="${Anonymous}"/>
               <user v="${FoldingAtHomeUser}"/>
               <team v="${FoldingAtHomeTeam}"/>
               <passkey v="${FoldingAtHomePasskey}"/>
