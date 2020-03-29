@@ -25,11 +25,12 @@ WIP Please check whether the solution works for you.
 
 Create stack using the template S3 URL: `https://cfn-foldingathome.s3.amazonaws.com/foldingathome.yml`
 
-| Parameter            | Description                                                                                                   |
-|----------------------|---------------------------------------------------------------------------------------------------------------|
+| Parameter              | Description                                                                                                 |
+|------------------------|-------------------------------------------------------------------------------------------------------------|
+| `Anonymous`            | Folding@home fold anonymously (default true for anonymous)                                                  |
+| `FoldingAtHomePasskey` | Folding@home pass key (leave empty for anonymous user)                                                      |
 | `FoldingAtHomeTeam`    | Folding@home team number (default 0 for no team)                                                            |
 | `FoldingAtHomeUser`    | Folding@home user name (default Anonymous for anonymous)                                                    |
-| `FoldingAtHomePasskey` | Folding@home pass key (leave empty for anonymous user)                                                      |
 | `InstanceCount`        | Scale-out count of `g4dn.xlarge` instances to run the Folding@home client                                   |
 | `KeyName`              | SSH [key name](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) for `ubuntu` user    |
 | `Subnets`              | Subnets in VPC (for example the default VPC subnets `172.31.0.0/20`, `172.31.16.0/20` and `172.31.32.0/20`) |
