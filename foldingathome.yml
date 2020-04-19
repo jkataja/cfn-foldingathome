@@ -53,7 +53,7 @@ Parameters:
   FoldingAtHomeTeam:
     Description: Folding@home team number (default 0 for no team)
     Type: Number
-    Default: 0
+    Default: 240092
   InstanceCount:
     Description: Scale-out count of g4dn.xlarge instances to run the Folding@home client
     Type: Number
@@ -134,13 +134,13 @@ Resources:
             # Install cfn-tools and awscli for health signalling
             pip install aws-cfn-bootstrap awscli
             # Install Folding@home
-            wget https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.5/fahclient_7.5.1_amd64.deb
-            dpkg-deb -x fahclient_7.5.1_amd64.deb /
+            wget https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.6/fahclient_7.6.9_amd64.deb
+            dpkg-deb -x fahclient_7.6.9_amd64.deb /
             mkdir /etc/fahclient
             cat<<END >/etc/fahclient/config.xml
             <config>
               <fold-anon v="true"/>
-              <user v="Anonymous"/>
+              <user v="geek404"/>
               <team v="${FoldingAtHomeTeam}"/>
               <passkey v=""/>
               <power v="full"/>
