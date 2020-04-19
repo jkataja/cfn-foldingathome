@@ -91,6 +91,8 @@ Show status of the service with `systemctl status FAHClient` .
 
 ## Release History
 
+* 20.4.19
+    * Updated client to 7.6.9
 * 20.3.21
     * Add custom health check to auto-scaling group, marking instance unhealthy on Folding@home client failure
     * Changed from init script included with the package to systemd service
