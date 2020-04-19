@@ -10,7 +10,7 @@ The template installs the following software:
 
  - Ubuntu 18.04 LTS
  - NVidia CUDA 10.2
- - Folding@home client 7.5.1
+ - Folding@home client 7.6.9
 
 Folding@home client is started automatically after instance initialization is complete.
 Client runs until the template is removed, auto scaling group is scaled in or spot instance is reclaimed.

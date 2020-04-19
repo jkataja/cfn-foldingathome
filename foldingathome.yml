@@ -134,8 +134,8 @@ Resources:
             # Install cfn-tools and awscli for health signalling
             pip install aws-cfn-bootstrap awscli
             # Install Folding@home
-            wget https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.5/fahclient_7.5.1_amd64.deb
-            dpkg-deb -x fahclient_7.5.1_amd64.deb /
+            wget https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.6/fahclient_7.6.9_amd64.deb
+            dpkg-deb -x fahclient_7.6.9_amd64.deb /
             mkdir /etc/fahclient
             cat<<END >/etc/fahclient/config.xml
             <config>
