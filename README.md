@@ -92,6 +92,8 @@ Show status of the service with `systemctl status FAHClient` .
 
 ## Release History
 
+* 20.4.23+1
+    * Prepopulate GPUs.txt to remove the need for restart 
 * 20.4.23
     * Added Folding@home user name and team as optional parameters 
 * 20.4.19
