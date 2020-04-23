@@ -166,6 +166,9 @@ Resources:
               <web-allow>127.0.0.1</web-allow>
             </config>
             END
+            cat<<END >/var/lib/fahclient/GPUs.txt
+            0x10de:0x1eb8:2:7:TU104GL [Tesla T4]
+            END
             cat<<END >/usr/local/bin/asg-unhealthy
             #!/bin/bash
             [ "\$SERVICE_RESULT" == "success" ] && exit 0
