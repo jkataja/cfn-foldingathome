@@ -61,15 +61,13 @@ Cost of spot instances may vary by availability zone. Auto scaling group may lau
 
 ### Launch from CLI
 
-Replace `KeyName`, `Subnets` and `VpcId` values:
+To launch one instance with anonymous folding, replace the `KeyName`, `Subnets` and `VpcId` values with your SSH key name and default VPC network parameters:
 
 ```sh
 aws cloudformation create-stack \
   --stack-name FoldingAtHome \
   --template-url https://cfn-foldingathome.s3.amazonaws.com/foldingathome.yml \
   --parameters \
-    ParameterKey="FoldingAtHomeTeam",ParameterValue="0" \
-    ParameterKey="InstanceCount",ParameterValue="1" \
     ParameterKey="KeyName",ParameterValue="mykeyname" \
     ParameterKey="Subnets",ParameterValue="subnet-12345678\,subnet-56781234" \
     ParameterKey="VpcId",ParameterValue="vpc-abcdefgh" \
@@ -94,6 +92,8 @@ Show status of the service with `systemctl status FAHClient` .
 
 ## Release History
 
+* 20.4.23
+    * Added Folding@home user name and team as optional parameters 
 * 20.4.19
     * Updated client to 7.6.9
 * 20.3.21
