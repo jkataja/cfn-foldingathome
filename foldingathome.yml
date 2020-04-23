@@ -139,8 +139,8 @@ Resources:
             MAJOR_VERSION="$(curl -sL https://download.foldingathome.org/js/fah-downloads.js \
             | awk -F'(/debian-stable-64bit/|/fahclient_)' '/debian-stable-64bit/ {print $2;exit}')" && \
             curl -o \
-	    /tmp/latest.deb -L \
-	    "https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/${MAJOR_VERSION}/fahclient_${PATCH_VERSION}_amd64.deb"
+            /tmp/latest.deb -L \
+            "https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/${MAJOR_VERSION}/fahclient_${PATCH_VERSION}_amd64.deb"
             dpkg-deb -x /tmp/latest.deb /
             mkdir /etc/fahclient
             cat<<END >/etc/fahclient/config.xml
