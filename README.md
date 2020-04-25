@@ -89,7 +89,7 @@ Now access the Web UI from: http://localhost:7396/
 
 Folding@home configuration is output to`/etc/fahclient/config.xml` .
 Folding progress log output is written to `/var/lib/fahclient/log.txt`.
-Show status of the service with `systemctl status FAHClient` .
+Show status of the service with `systemctl status fahclient` .
 
 ## Release History
 
