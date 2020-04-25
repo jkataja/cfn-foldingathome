@@ -93,6 +93,9 @@ Show status of the service with `systemctl status FAHClient` .
 
 ## Release History
 
+* 20.4.25
+    * Updated base Ubuntu AMI image
+    * Added launch link for Africa (Cape Town) region
 * 20.4.23+1
     * Prepopulate GPUs.txt to remove the need for restart 
 * 20.4.23
