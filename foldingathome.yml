@@ -6,48 +6,50 @@ Description: |
 Mappings:
   # Ubuntu 18.04 LTS AMI IDs as of 2020-03-16 from https://cloud-images.ubuntu.com/locator/ec2/
   Ubuntu1804:
+    af-south-1:
+      ImageId: 'ami-0914f03407aa25fb8'
     ap-east-1:
-      ImageId: 'ami-868bcff7'
+      ImageId: 'ami-c790d6b6'
     ap-northeast-1:
-      ImageId: 'ami-01f90b0460589991e'
+      ImageId: 'ami-0278fe6949f6b1a06'
     ap-northeast-2:
-      ImageId: 'ami-096e3ded41e3bda6a'
+      ImageId: 'ami-00edfb46b107f643c'
     ap-northeast-3:
-      ImageId: 'ami-0942fd36e1571cbdf'
+      ImageId: 'ami-00eac2261db3c9df5'
     ap-south-1:
-      ImageId: 'ami-0d11056c10bfdde69'
+      ImageId: 'ami-0b44050b2d893d5f7'
     ap-southeast-1:
-      ImageId: 'ami-07ce5f60a39f1790e'
+      ImageId: 'ami-0f7719e8b7ba25c61'
     ap-southeast-2:
-      ImageId: 'ami-04c7af7de7ad468f0'
+      ImageId: 'ami-04fcc97b5f6edcd89'
     ca-central-1:
-      ImageId: 'ami-064efdb82ae15e93f'
+      ImageId: 'ami-0edd51cc29813e254'
     cn-north-1:
-      ImageId: 'ami-01993b4213b4bffb5'
+      ImageId: 'ami-0071f6f4df15863cc'
     cn-northwest-1:
-      ImageId: 'ami-01d4e30d4d4952d0f'
+      ImageId: 'ami-0a22b8776bb32836b'
     eu-central-1:
-      ImageId: 'ami-0718a1ae90971ce4d'
+      ImageId: 'ami-0e342d72b12109f91'
     eu-north-1:
-      ImageId: 'ami-0e850e0e9c20d9deb'
+      ImageId: 'ami-050981837962d44ac'
     eu-west-1:
-      ImageId: 'ami-07042e91d04b1c30d'
+      ImageId: 'ami-0701e7be9b2a77600'
     eu-west-2:
-      ImageId: 'ami-04cc79dd5df3bffca'
+      ImageId: 'ami-0eb89db7593b5d434'
     eu-west-3:
-      ImageId: 'ami-0c367ebddcf279dc6'
+      ImageId: 'ami-08c757228751c5335'
     me-south-1:
-      ImageId: 'ami-0e40363f9ed76073b'
+      ImageId: 'ami-051274f257aba97f9'
     sa-east-1:
-      ImageId: 'ami-0cb1ddea3786f6c0d'
+      ImageId: 'ami-077d5d3682940b34a'
     us-east-1:
-      ImageId: 'ami-046842448f9e74e7d'
+      ImageId: 'ami-085925f297f89fce1'
     us-east-2:
-      ImageId: 'ami-0367b500fdcac0edc'
+      ImageId: 'ami-07c1207a9d40bc3bd'
     us-west-1:
-      ImageId: 'ami-0d58800f291760030'
+      ImageId: 'ami-0f56279347d2fa43e'
     us-west-2:
-      ImageId: 'ami-0edf3b95e26a682df'
+      ImageId: 'ami-003634241a8fcdec0'
 
 Parameters: 
   Anonymous:
