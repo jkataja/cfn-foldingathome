@@ -84,6 +84,12 @@ Parameters:
   VpcId:
     Description: VPC for the stack (for example the default VPC 172.31.0.0/16)
     Type: AWS::EC2::VPC::Id
+  SSHLocation:
+    AllowedPattern: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$"
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/0-28
+    Default: 0.0.0.0/0
+    Description: Network allowed to ssh to instances in public subnet.
+    Type: String
 
 Resources: 
   AutoScalingGroup:
@@ -206,7 +212,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
-          CidrIp: 0.0.0.0/0
+          CidrIp: !Ref SSHLocation
       SecurityGroupEgress:
         - IpProtocol: udp
           FromPort: 53
