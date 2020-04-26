@@ -4,6 +4,7 @@ Description: |
   Run Folding@home on spot instances to help find cure for COVID-19.
 
 Mappings:
+<<<<<<< HEAD
   # Ubuntu 18.04 LTS AMI IDs as of 2020-04-25 from https://cloud-images.ubuntu.com/locator/ec2/
   Ubuntu1804:
     af-south-1:
@@ -42,14 +43,62 @@ Mappings:
       ImageId: 'ami-051274f257aba97f9'
     sa-east-1:
       ImageId: 'ami-077d5d3682940b34a'
+=======
+  # Ubuntu 20.04 LTS AMI IDs as of 2020-04-26 from https://cloud-images.ubuntu.com/locator/ec2/
+  Ubuntu1804:
+    af-south-1: 
+      ImageId: 'ami-033b88f80930a0f7a'
+    ap-east-1:
+      ImageId: 'ami-9ccc8aed'
+    ap-northeast-1:
+      ImageId: 'ami-0c1ac8728ef7f87a4'
+    ap-northeast-2:
+      ImageId: 'ami-0de407404c33d1671'
+    ap-northeast-3:
+      ImageId: 'ami-0e319adbbd61f8b6f'
+    ap-south-1:
+      ImageId: 'ami-0c5b1a88222ac79cb'
+    ap-southeast-1:
+      ImageId: 'ami-0b8cf0f359b1335e1'
+    ap-southeast-2:
+      ImageId: 'ami-0a1a4d97d4af3009b'
+    ca-central-1:
+      ImageId: 'ami-08a6203f59f9df866'
+    cn-north-1:
+      ImageId: '' # Not available yet 
+    cn-northwest-1:
+      ImageId: '' # Not available yet 
+    eu-central-1:
+      ImageId: 'ami-05c26ae4789875080'
+    eu-north-1:
+      ImageId: 'ami-0d4e2b57f569e9daa'
+    eu-west-1:
+      ImageId: 'ami-0dad359ff462124ca'
+    eu-west-2:
+      ImageId: 'ami-0917237b4e71c5759'
+    eu-west-3:
+      ImageId: 'ami-0e60c6afa19d896ee'
+    me-south-1:
+      ImageId: 'ami-09cbb7fde4a0edad0'
+    sa-east-1:
+      ImageId: 'ami-001c16a3a4f5d85f1'
+>>>>>>> 75ace9c... updated ami list
     us-east-1:
-      ImageId: 'ami-068663a3c619dd892' # Updated to 20.04
+      ImageId: 'ami-068663a3c619dd892' 
     us-east-2:
+<<<<<<< HEAD
       ImageId: 'ami-07c1207a9d40bc3bd'
     us-west-1:
       ImageId: 'ami-0f56279347d2fa43e'
     us-west-2:
       ImageId: 'ami-003634241a8fcdec0'
+=======
+      ImageId: 'ami-0e84e211558a022c0'
+    us-west-1:
+      ImageId: 'ami-075fd582acf0c0128'
+    us-west-2:
+      ImageId: 'ami-09dd2e08d601bff67'
+>>>>>>> 75ace9c... updated ami list
 
 Parameters: 
   Anonymous:
