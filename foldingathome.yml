@@ -41,7 +41,7 @@ Mappings:
     sa-east-1:
       ImageId: 'ami-0cb1ddea3786f6c0d'
     us-east-1:
-      ImageId: 'ami-068663a3c619dd892'
+      ImageId: 'ami-068663a3c619dd892' # Updated to 20.04
     us-east-2:
       ImageId: 'ami-0367b500fdcac0edc'
     us-west-1:
