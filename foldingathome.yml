@@ -43,7 +43,7 @@ Mappings:
     sa-east-1:
       ImageId: 'ami-077d5d3682940b34a'
     us-east-1:
-      ImageId: 'ami-085925f297f89fce1'
+      ImageId: 'ami-068663a3c619dd892'
     us-east-2:
       ImageId: 'ami-07c1207a9d40bc3bd'
     us-west-1:
@@ -106,10 +106,10 @@ Resources:
         - Key: Name
           Value: Folding@home
           PropagateAtLaunch: True
-    CreationPolicy:
-      ResourceSignal:
-        Count: !Ref InstanceCount
-        Timeout: 'PT10M' # 10 minutes
+    # CreationPolicy:
+    #   ResourceSignal:
+    #     Count: !Ref InstanceCount
+    #     Timeout: 'PT10M' # 10 minutes
 
   LaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
@@ -140,10 +140,7 @@ Resources:
             #!/bin/bash -ex
             exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
             # Use instance store for Folding@home
-            mkfs -t ext4 /dev/nvme0n1
             mkdir /var/lib/fahclient
-            echo "/dev/nvme0n1 /var/lib/fahclient ext4 defaults,discard 0 0" >>/etc/fstab
-            mount -a
             chown ubuntu:ubuntu /var/lib/fahclient
             # Install NVidia CUDA drivers and Python
             wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
@@ -152,11 +149,9 @@ Resources:
             add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
             apt-get update
             apt-get -y upgrade
-            apt-get -y install cuda python-minimal python-pip
+            apt-get -y install --no-install-recommends cuda nvidia-utils-440 awscli 
             # Optimize GPU settings
             nvidia-smi -ac 5001,1590
-            # Install cfn-tools and awscli for health signalling
-            pip install aws-cfn-bootstrap awscli
             # Install Folding@home
             wget https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.6/fahclient_7.6.9_amd64.deb
             dpkg-deb -x fahclient_7.6.9_amd64.deb /
@@ -181,7 +176,8 @@ Resources:
             cat<<END >/usr/local/bin/asg-unhealthy
             #!/bin/bash
             [ "\$SERVICE_RESULT" == "success" ] && exit 0
-            exec /usr/local/bin/aws autoscaling set-instance-health --instance-id $(curl http://169.254.169.254/latest/meta-data/instance-id) --health-status "Unhealthy" --region ${AWS::Region}
+            # TODO: Update the curl for IMDSv2
+            exec /usr/bin/aws autoscaling set-instance-health --instance-id $(curl http://169.254.169.254/latest/meta-data/instance-id) --health-status "Unhealthy" --region ${AWS::Region}
             END
             chmod a+rx /usr/local/bin/asg-unhealthy
             cat<<END >/etc/systemd/system/fahclient.service
@@ -201,7 +197,7 @@ Resources:
             systemctl enable fahclient
             systemctl start fahclient
             # send success signal
-            /usr/local/bin/cfn-signal --success true --stack ${AWS::StackName} --resource AutoScalingGroup --region ${AWS::Region}
+            # aws cloudformation signal-resource --status SUCCESS --stack ${AWS::StackName} --logical-resource-id AutoScalingGroup --unique-id $(curl http://169.254.169.254/latest/meta-data/instance-id) --region ${AWS::Region}
 
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -238,7 +234,6 @@ Resources:
   InstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
-      Path: /
       Roles:
         - !Ref CustomHealthCheckRole
 
@@ -265,3 +260,7 @@ Resources:
                 Condition:
                   StringEquals:
                     'aws:ResourceTag/aws:cloudformation:stack-name': !Ref 'AWS::StackName'
+              - Effect: 'Allow'
+                Action: 'cloudformation:SignalResource'
+                Resource: "*"
+
