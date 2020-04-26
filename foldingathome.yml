@@ -4,50 +4,52 @@ Description: |
   Run Folding@home on spot instances to help find cure for COVID-19.
 
 Mappings:
-  # Ubuntu 18.04 LTS AMI IDs as of 2020-03-16 from https://cloud-images.ubuntu.com/locator/ec2/
+  # Ubuntu 20.04 LTS AMI IDs as of 2020-04-26 from https://cloud-images.ubuntu.com/locator/ec2/
   Ubuntu1804:
+    af-south-1: 
+      ImageId: 'ami-033b88f80930a0f7a'
     ap-east-1:
-      ImageId: 'ami-868bcff7'
+      ImageId: 'ami-9ccc8aed'
     ap-northeast-1:
-      ImageId: 'ami-01f90b0460589991e'
+      ImageId: 'ami-0c1ac8728ef7f87a4'
     ap-northeast-2:
-      ImageId: 'ami-096e3ded41e3bda6a'
+      ImageId: 'ami-0de407404c33d1671'
     ap-northeast-3:
-      ImageId: 'ami-0942fd36e1571cbdf'
+      ImageId: 'ami-0e319adbbd61f8b6f'
     ap-south-1:
-      ImageId: 'ami-0d11056c10bfdde69'
+      ImageId: 'ami-0c5b1a88222ac79cb'
     ap-southeast-1:
-      ImageId: 'ami-07ce5f60a39f1790e'
+      ImageId: 'ami-0b8cf0f359b1335e1'
     ap-southeast-2:
-      ImageId: 'ami-04c7af7de7ad468f0'
+      ImageId: 'ami-0a1a4d97d4af3009b'
     ca-central-1:
-      ImageId: 'ami-064efdb82ae15e93f'
+      ImageId: 'ami-08a6203f59f9df866'
     cn-north-1:
-      ImageId: 'ami-01993b4213b4bffb5'
+      ImageId: '' # Not available yet 
     cn-northwest-1:
-      ImageId: 'ami-01d4e30d4d4952d0f'
+      ImageId: '' # Not available yet 
     eu-central-1:
-      ImageId: 'ami-0718a1ae90971ce4d'
+      ImageId: 'ami-05c26ae4789875080'
     eu-north-1:
-      ImageId: 'ami-0e850e0e9c20d9deb'
+      ImageId: 'ami-0d4e2b57f569e9daa'
     eu-west-1:
-      ImageId: 'ami-07042e91d04b1c30d'
+      ImageId: 'ami-0dad359ff462124ca'
     eu-west-2:
-      ImageId: 'ami-04cc79dd5df3bffca'
+      ImageId: 'ami-0917237b4e71c5759'
     eu-west-3:
-      ImageId: 'ami-0c367ebddcf279dc6'
+      ImageId: 'ami-0e60c6afa19d896ee'
     me-south-1:
-      ImageId: 'ami-0e40363f9ed76073b'
+      ImageId: 'ami-09cbb7fde4a0edad0'
     sa-east-1:
-      ImageId: 'ami-0cb1ddea3786f6c0d'
+      ImageId: 'ami-001c16a3a4f5d85f1'
     us-east-1:
-      ImageId: 'ami-068663a3c619dd892' # Updated to 20.04
+      ImageId: 'ami-068663a3c619dd892' 
     us-east-2:
-      ImageId: 'ami-0367b500fdcac0edc'
+      ImageId: 'ami-0e84e211558a022c0'
     us-west-1:
-      ImageId: 'ami-0d58800f291760030'
+      ImageId: 'ami-075fd582acf0c0128'
     us-west-2:
-      ImageId: 'ami-0edf3b95e26a682df'
+      ImageId: 'ami-09dd2e08d601bff67'
 
 Parameters: 
   Anonymous:
