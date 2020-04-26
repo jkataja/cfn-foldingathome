@@ -94,6 +94,8 @@ Show status of the service with `systemctl status fahclient` .
 
 ## Release History
 
+* 20.4.26
+    * Added `SSHLocation` parameter to limit SSH access (thanks [FireballDWF](https://github.com/FireballDWF)!)
 * 20.4.25
     * Updated base Ubuntu AMI image
     * Added launch link for Africa (Cape Town) region
