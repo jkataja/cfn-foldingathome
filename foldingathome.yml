@@ -202,7 +202,6 @@ Resources:
             # send success signal
             /usr/local/bin/cfn-signal --success true --stack ${AWS::StackName} --resource AutoScalingGroup --region ${AWS::Region}
 
-  #checkov:skip=CKV_AWS_24:SSH access can be restricted with SSHLocation parameter
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -212,7 +211,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
-          CidrIp: !Ref SSHLocation
+          CidrIp: !Ref SSHLocation #checkov:skip=CKV_AWS_24:
       SecurityGroupEgress:
         - IpProtocol: udp
           FromPort: 53
