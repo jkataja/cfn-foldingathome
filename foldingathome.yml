@@ -211,7 +211,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
-          CidrIp: !Ref SSHLocation #checkov:skip=CKV_AWS_24:
+          CidrIp: !Ref SSHLocation
       SecurityGroupEgress:
         - IpProtocol: udp
           FromPort: 53
