@@ -4,52 +4,52 @@ Description: |
   Run Folding@home on spot instances to help find cure for COVID-19.
 
 Mappings:
-  # Ubuntu 18.04 LTS AMI IDs as of 2020-04-25 from https://cloud-images.ubuntu.com/locator/ec2/
+  # Ubuntu 20.04 LTS AMI IDs as of 2020-04-26 from https://cloud-images.ubuntu.com/locator/ec2/
   Ubuntu1804:
-    af-south-1:
-      ImageId: 'ami-0914f03407aa25fb8'
+    af-south-1: 
+      ImageId: 'ami-033b88f80930a0f7a'
     ap-east-1:
-      ImageId: 'ami-c790d6b6'
+      ImageId: 'ami-9ccc8aed'
     ap-northeast-1:
-      ImageId: 'ami-0278fe6949f6b1a06'
+      ImageId: 'ami-0c1ac8728ef7f87a4'
     ap-northeast-2:
-      ImageId: 'ami-00edfb46b107f643c'
+      ImageId: 'ami-0de407404c33d1671'
     ap-northeast-3:
-      ImageId: 'ami-00eac2261db3c9df5'
+      ImageId: 'ami-0e319adbbd61f8b6f'
     ap-south-1:
-      ImageId: 'ami-0b44050b2d893d5f7'
+      ImageId: 'ami-0c5b1a88222ac79cb'
     ap-southeast-1:
-      ImageId: 'ami-0f7719e8b7ba25c61'
+      ImageId: 'ami-0b8cf0f359b1335e1'
     ap-southeast-2:
-      ImageId: 'ami-04fcc97b5f6edcd89'
+      ImageId: 'ami-0a1a4d97d4af3009b'
     ca-central-1:
-      ImageId: 'ami-0edd51cc29813e254'
+      ImageId: 'ami-08a6203f59f9df866'
     cn-north-1:
-      ImageId: 'ami-0071f6f4df15863cc'
+      ImageId: '' # Not available yet 
     cn-northwest-1:
-      ImageId: 'ami-0a22b8776bb32836b'
+      ImageId: '' # Not available yet 
     eu-central-1:
-      ImageId: 'ami-0e342d72b12109f91'
+      ImageId: 'ami-05c26ae4789875080'
     eu-north-1:
-      ImageId: 'ami-050981837962d44ac'
+      ImageId: 'ami-0d4e2b57f569e9daa'
     eu-west-1:
-      ImageId: 'ami-0701e7be9b2a77600'
+      ImageId: 'ami-0dad359ff462124ca'
     eu-west-2:
-      ImageId: 'ami-0eb89db7593b5d434'
+      ImageId: 'ami-0917237b4e71c5759'
     eu-west-3:
-      ImageId: 'ami-08c757228751c5335'
+      ImageId: 'ami-0e60c6afa19d896ee'
     me-south-1:
-      ImageId: 'ami-051274f257aba97f9'
+      ImageId: 'ami-09cbb7fde4a0edad0'
     sa-east-1:
-      ImageId: 'ami-077d5d3682940b34a'
+      ImageId: 'ami-001c16a3a4f5d85f1'
     us-east-1:
-      ImageId: 'ami-085925f297f89fce1'
+      ImageId: 'ami-068663a3c619dd892' 
     us-east-2:
-      ImageId: 'ami-07c1207a9d40bc3bd'
+      ImageId: 'ami-0e84e211558a022c0'
     us-west-1:
-      ImageId: 'ami-0f56279347d2fa43e'
+      ImageId: 'ami-075fd582acf0c0128'
     us-west-2:
-      ImageId: 'ami-003634241a8fcdec0'
+      ImageId: 'ami-09dd2e08d601bff67'
 
 Parameters: 
   Anonymous:
@@ -106,10 +106,10 @@ Resources:
         - Key: Name
           Value: Folding@home
           PropagateAtLaunch: True
-    CreationPolicy:
-      ResourceSignal:
-        Count: !Ref InstanceCount
-        Timeout: 'PT10M' # 10 minutes
+    # CreationPolicy:
+    #   ResourceSignal:
+    #     Count: !Ref InstanceCount
+    #     Timeout: 'PT10M' # 10 minutes
 
   LaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
@@ -140,24 +140,21 @@ Resources:
             #!/bin/bash -ex
             exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
             # Use instance store for Folding@home
-            mkfs -t ext4 /dev/nvme0n1
             mkdir /var/lib/fahclient
-            echo "/dev/nvme0n1 /var/lib/fahclient ext4 defaults,discard 0 0" >>/etc/fstab
-            mount -a
             chown ubuntu:ubuntu /var/lib/fahclient
+            # Download Folding@home client in background
+            wget https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.6/fahclient_7.6.9_amd64.deb&
             # Install NVidia CUDA drivers and Python
             wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
             mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
             apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
             add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
             apt-get update
-            apt-get -y install cuda python-minimal python-pip
+            apt-get -y upgrade
+            apt-get -y install --no-install-recommends cuda nvidia-utils-440 awscli 
             # Optimize GPU settings
             nvidia-smi -ac 5001,1590
-            # Install cfn-tools and awscli for health signalling
-            pip install aws-cfn-bootstrap awscli
             # Install Folding@home
-            wget https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.6/fahclient_7.6.9_amd64.deb
             dpkg-deb -x fahclient_7.6.9_amd64.deb /
             mkdir /etc/fahclient
             cat<<END >/etc/fahclient/config.xml
@@ -180,7 +177,8 @@ Resources:
             cat<<END >/usr/local/bin/asg-unhealthy
             #!/bin/bash
             [ "\$SERVICE_RESULT" == "success" ] && exit 0
-            exec /usr/local/bin/aws autoscaling set-instance-health --instance-id $(curl http://169.254.169.254/latest/meta-data/instance-id) --health-status "Unhealthy" --region ${AWS::Region}
+            # TODO: Update the curl for IMDSv2
+            exec /usr/bin/aws autoscaling set-instance-health --instance-id $(curl http://169.254.169.254/latest/meta-data/instance-id) --health-status "Unhealthy" --region ${AWS::Region}
             END
             chmod a+rx /usr/local/bin/asg-unhealthy
             cat<<END >/etc/systemd/system/fahclient.service
@@ -197,10 +195,11 @@ Resources:
             [Install]
             WantedBy=multi-user.target
             END
-            systemctl enable fahclient
             systemctl start fahclient
+            systemctl enable fahclient
+
             # send success signal
-            /usr/local/bin/cfn-signal --success true --stack ${AWS::StackName} --resource AutoScalingGroup --region ${AWS::Region}
+            aws cloudformation signal-resource --status SUCCESS --stack ${AWS::StackName} --logical-resource-id AutoScalingGroup --unique-id $(curl http://169.254.169.254/latest/meta-data/instance-id) --region ${AWS::Region}
 
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -237,7 +236,6 @@ Resources:
   InstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
-      Path: /
       Roles:
         - !Ref CustomHealthCheckRole
 
@@ -264,3 +262,7 @@ Resources:
                 Condition:
                   StringEquals:
                     'aws:ResourceTag/aws:cloudformation:stack-name': !Ref 'AWS::StackName'
+              - Effect: 'Allow'
+                Action: 'cloudformation:SignalResource'
+                Resource: "*"
+
