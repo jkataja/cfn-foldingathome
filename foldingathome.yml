@@ -106,10 +106,10 @@ Resources:
         - Key: Name
           Value: Folding@home
           PropagateAtLaunch: True
-    # CreationPolicy:
-    #   ResourceSignal:
-    #     Count: !Ref InstanceCount
-    #     Timeout: 'PT10M' # 10 minutes
+    CreationPolicy:
+      ResourceSignal:
+        Count: !Ref InstanceCount
+        Timeout: 'PT10M' # 10 minutes
 
   LaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
@@ -142,6 +142,8 @@ Resources:
             # Use instance store for Folding@home
             mkdir /var/lib/fahclient
             chown ubuntu:ubuntu /var/lib/fahclient
+            # Download Folding@home client in background
+            wget https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.6/fahclient_7.6.9_amd64.deb&
             # Install NVidia CUDA drivers and Python
             wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
             mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
@@ -153,7 +155,6 @@ Resources:
             # Optimize GPU settings
             nvidia-smi -ac 5001,1590
             # Install Folding@home
-            wget https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.6/fahclient_7.6.9_amd64.deb
             dpkg-deb -x fahclient_7.6.9_amd64.deb /
             mkdir /etc/fahclient
             cat<<END >/etc/fahclient/config.xml
@@ -194,10 +195,11 @@ Resources:
             [Install]
             WantedBy=multi-user.target
             END
-            systemctl enable fahclient
             systemctl start fahclient
+            systemctl enable fahclient
+
             # send success signal
-            # aws cloudformation signal-resource --status SUCCESS --stack ${AWS::StackName} --logical-resource-id AutoScalingGroup --unique-id $(curl http://169.254.169.254/latest/meta-data/instance-id) --region ${AWS::Region}
+            aws cloudformation signal-resource --status SUCCESS --stack ${AWS::StackName} --logical-resource-id AutoScalingGroup --unique-id $(curl http://169.254.169.254/latest/meta-data/instance-id) --region ${AWS::Region}
 
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
