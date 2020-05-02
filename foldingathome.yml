@@ -159,6 +159,7 @@ Resources:
             mkdir /etc/fahclient
             cat<<END >/etc/fahclient/config.xml
             <config>
+              <client-type v='advanced'/>
               <fold-anon v="${Anonymous}"/>
               <user v="${FoldingAtHomeUser}"/>
               <team v="${FoldingAtHomeTeam}"/>
