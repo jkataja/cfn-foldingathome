@@ -106,10 +106,10 @@ Resources:
         - Key: Name
           Value: Folding@home
           PropagateAtLaunch: True
-    CreationPolicy:
-      ResourceSignal:
-        Count: !Ref InstanceCount
-        Timeout: 'PT10M' # 10 minutes
+    # CreationPolicy:
+    #   ResourceSignal:
+    #     Count: !Ref InstanceCount
+    #     Timeout: 'PT10M' # 10 minutes
 
   LaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
