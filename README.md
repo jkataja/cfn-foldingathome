@@ -35,7 +35,7 @@ Create stack using the template S3 URL: `https://cfn-foldingathome.s3.amazonaws.
 | `FoldingAtHomeUser`    | Folding@home user name (default Anonymous for anonymous)                                                    |
 | `InstanceCount`        | Scale-out count of `g4dn.xlarge` instances to run the Folding@home client                                   |
 | `KeyName`              | SSH [key name](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) for `ubuntu` user    |
-| `SSHLocation`          | Network allowed to SSH to instances in public subnet (default 0.0.0.0/0 to allow from everywhere)           |
+| `SSHLocation`          | Network allowed to SSH to instances in public subnet (default `0.0.0.0/0` to allow from everywhere)         |
 | `Subnets`              | Subnets in VPC (for example the default VPC subnets `172.31.0.0/20`, `172.31.16.0/20` and `172.31.32.0/20`) |
 | `VpcId`                | VPC for the stack (for example the default VPC `172.31.0.0/16`)                                             |
 
