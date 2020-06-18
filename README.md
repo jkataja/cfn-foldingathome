@@ -96,6 +96,8 @@ Show status of the service with `systemctl status fahclient` .
 
 ## Release History
 
+* 20.6.18
+    * Updated base Ubuntu AMI image
 * 20.5.13
     * Updated client to 7.6.13 (thanks [FireballDWF](https://github.com/FireballDWF)!)
 * 20.4.26
