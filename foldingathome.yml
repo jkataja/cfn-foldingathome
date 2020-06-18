@@ -4,52 +4,54 @@ Description: |
   Run Folding@home on spot instances to help find cure for COVID-19.
 
 Mappings:
-  # Ubuntu 18.04 LTS AMI IDs as of 2020-04-25 from https://cloud-images.ubuntu.com/locator/ec2/
+  # Ubuntu 18.04 LTS AMI IDs as of 2020-06-18 from https://cloud-images.ubuntu.com/locator/ec2/
   Ubuntu1804:
     af-south-1:
-      ImageId: 'ami-0914f03407aa25fb8'
+      ImageId: 'ami-079652134905bcbad'
     ap-east-1:
-      ImageId: 'ami-c790d6b6'
+      ImageId: 'ami-c42464b5'
     ap-northeast-1:
-      ImageId: 'ami-0278fe6949f6b1a06'
+      ImageId: 'ami-0cfa3caed4b487e77'
     ap-northeast-2:
-      ImageId: 'ami-00edfb46b107f643c'
+      ImageId: 'ami-0d777f54156eae7d9'
     ap-northeast-3:
-      ImageId: 'ami-00eac2261db3c9df5'
+      ImageId: 'ami-056ee91a6ed694f5d'
     ap-south-1:
-      ImageId: 'ami-0b44050b2d893d5f7'
+      ImageId: 'ami-02d55cb47e83a99a0'
     ap-southeast-1:
-      ImageId: 'ami-0f7719e8b7ba25c61'
+      ImageId: 'ami-063e3af9d2cc7fe94'
     ap-southeast-2:
-      ImageId: 'ami-04fcc97b5f6edcd89'
+      ImageId: 'ami-0bc49f9283d686bab'
     ca-central-1:
-      ImageId: 'ami-0edd51cc29813e254'
+      ImageId: 'ami-065ba2b6b298ed80f'
     cn-north-1:
       ImageId: 'ami-0071f6f4df15863cc'
     cn-northwest-1:
       ImageId: 'ami-0a22b8776bb32836b'
     eu-central-1:
-      ImageId: 'ami-0e342d72b12109f91'
+      ImageId: 'ami-0d359437d1756caa8'
     eu-north-1:
-      ImageId: 'ami-050981837962d44ac'
+      ImageId: 'ami-0f920d75f0ce2c4bb'
+    eu-south-1:
+      ImageId: 'ami-08bb6fa4a2d8676d4'
     eu-west-1:
-      ImageId: 'ami-0701e7be9b2a77600'
+      ImageId: 'ami-089cc16f7f08c4457'
     eu-west-2:
-      ImageId: 'ami-0eb89db7593b5d434'
+      ImageId: 'ami-00f6a0c18edb19300'
     eu-west-3:
-      ImageId: 'ami-08c757228751c5335'
+      ImageId: 'ami-0e11cbb34015ff725'
     me-south-1:
-      ImageId: 'ami-051274f257aba97f9'
+      ImageId: 'ami-0ca656ad4cf917e1f'
     sa-east-1:
-      ImageId: 'ami-077d5d3682940b34a'
+      ImageId: 'ami-0faf2c48fc9c8f966'
     us-east-1:
-      ImageId: 'ami-085925f297f89fce1'
+      ImageId: 'ami-0ac80df6eff0e70b5'
     us-east-2:
-      ImageId: 'ami-07c1207a9d40bc3bd'
+      ImageId: 'ami-0a63f96e85105c6d3'
     us-west-1:
-      ImageId: 'ami-0f56279347d2fa43e'
+      ImageId: 'ami-0d705db840ec5f0c5'
     us-west-2:
-      ImageId: 'ami-003634241a8fcdec0'
+      ImageId: 'ami-053bc2e89490c5ab7'
 
 Parameters: 
   Anonymous:
